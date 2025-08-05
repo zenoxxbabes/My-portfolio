@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Discord Servers - ZENOXX</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.cdnfonts.com/css/lemon-milk" rel="stylesheet" />
+    <style>
+        @keyframes floatUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            background: linear-gradient(135deg, #3a0a5a 10%, #000000 90%);
+            font-family: 'Open Sans', sans-serif;
+            color: white;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            padding: 20px;
+        }
+        h1 {
+            font-family: 'Lemon Milk', sans-serif; /* Updated font family */
+            font-weight: 700;
+            font-size: 3.8rem;
+            margin: 0 0 10px; /* Adjusted margin */
+            line-height: 1.1;
+            background: linear-gradient(90deg, #c368ff, #8452d2, #6a0dad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: floatUp 1.2s ease forwards;
+            user-select: none;
+            position: relative;
+            z-index: 20; /* Ensure h1 is above other elements */
+        }
+        p {
+            font-weight: 600;
+            font-size: 1.4rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+            color: #d3c1ffcc;
+            animation: floatUp 1.6s ease forwards;
+            animation-delay: 0.5s;
+        }
+        canvas {
+            display: block;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .button-container {
+            margin-top: 20px;
+        }
+        .button {
+            background: linear-gradient(90deg, #8452d2, #c368ff); /* Gradient background */
+            color: white;
+            border: none;
+            border-radius: 30px; /* Rounded corners */
+            padding: 12px 24px;
+            font-size: 1.2rem;
+            font-weight: 600; /* Bold text */
+            letter-spacing: 1px; /* Spacing between letters */
+            text-transform: uppercase; /* Uppercase text */
+            cursor: pointer;
+            margin: 5px;
+            transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+            animation: floatUp 1s ease forwards;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Shadow effect */
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* Text shadow for depth */
+        }
+        .button:hover {
+            transform: translateY(-3px); /* Lift effect */
+            background: linear-gradient(90deg, #c368ff, #8452d2); /* Reverse gradient on hover */
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4); /* Enhanced shadow on hover */
+        }
+        .button:active {
+            transform: translateY(1px); /* Press effect */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Reset shadow */
+        }
+    </style>
+</head>
+<body>
+    <h1>Discord Server's</h1>
+    <p>ZENOXX works as an Advanced Discord Server Admin & Developer!</p>
+
+    <div class="button-container">
+        <a href="https://discord.gg/KAdyykNn6Y" target="_blank">
+            <button class="button">Server 1</button>
+        </a>
+        <a href="https://discord.gg/darkcreation" target="_blank">
+            <button class="button">Server 2</button>
+        </a>
+        <a href="https://discord.gg/mABbAzUjbH" target="_blank">
+            <button class="button">Server 3</button>
+        </a>
+    </div>
+
+    <canvas id="starfield"></canvas>
+    <script>
+        (() => {
+            const canvas = document.getElementById('starfield');
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let stars = [];
+            const maxStars = 200;
+
+            class Star {
+                constructor() {
+                    this.reset();
+                }
+                reset() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.size = Math.random() * 1.5 + 0.5;
+                    this.speed = (this.size * 0.15) + 0.05;
+                    this.opacity = Math.random();
+                    this.opacityChange = 0.005 + Math.random() * 0.01;
+                }
+                update() {
+                    this.x -= this.speed;
+                    if (this.x < 0) this.x = width;
+                    this.opacity += this.opacityChange;
+                    if (this.opacity <= 0.1 || this.opacity >= 1) this.opacityChange = -this.opacityChange;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity.toFixed(2)})`;
+                    ctx.shadowColor = 'white';
+                    ctx.shadowBlur = 5;
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            function resize() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width * devicePixelRatio;
+                canvas.height = height * devicePixelRatio;
+                canvas.style.width = width + 'px';
+                canvas.style.height = height + 'px';
+                ctx.setTransform(1, 0, 0, 1, 0, 0);
+                ctx.scale(devicePixelRatio, devicePixelRatio);
+            }
+
+            function initStars() {
+                stars = [];
+                for (let i = 0; i < maxStars; i++) {
+                    stars.push(new Star());
+                }
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                for (let star of stars) {
+                    star.update();
+                    star.draw();
+                }
+                requestAnimationFrame(animate);
+            }
+
+            window.addEventListener('resize', () => {
+                resize();
+                initStars();
+            });
+
+            resize();
+            initStars();
+            animate();
+        })();
+    </script>
+</body>
+</html>
