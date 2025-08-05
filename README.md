@@ -55,11 +55,8 @@ Now, I’ve redesigned everything from scratch using cleaner, more modern code. 
 
 ---
 
----
-
 ## 📸 links
 
-*(Add screenshots here if needed)*
 Old Web - https://zenoxxreturns.netlify.app/
 Updated New Web - https://zenoxx.netlify.app/
 ---
@@ -70,7 +67,7 @@ Feel free to reach out if you'd like to collaborate or give feedback!
 
 - 🌐 **Website:** [zenoxx.netlify.app](https://zenoxx.netlify.app/)
 - 📧 **Email:** [zenoxxfromhell@gmail.com]
-- 💬 **Discord:** [thezenoxx] *(optional)*
+- 💬 **Discord:** [thezenoxx] 
 
 ---
 
@@ -82,5 +79,5 @@ This project is open-source — feel free to use it for inspiration, fork it, or
 
 > Built with ❤️ by **ZENOXX**
 
-## 🧩 Folder Structure (New Version)
+## 🧩 Should I Drop the Updated Version as Public?
 
